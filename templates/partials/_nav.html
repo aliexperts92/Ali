@@ -1,0 +1,35 @@
+<header class="nav{% if light_nav %} is-light{% endif %}" id="site-nav">
+  <div class="nav__inner">
+    <a class="nav__logo" href="{{ url_for('index') }}" aria-label="{{ site.full_name }} home">
+      {{ site.name }}
+      <small>Est. {{ site.est }}</small>
+    </a>
+
+    <nav aria-label="Primary">
+      <ul class="nav__links">
+        {% for link in nav_links %}
+        <li>
+          <a href="{{ url_for(link.endpoint) }}"
+             {% if page_id == link.endpoint or (page_id == 'home' and link.endpoint == 'index') %}aria-current="page"{% endif %}>
+            {{ link.label }}
+          </a>
+        </li>
+        {% endfor %}
+      </ul>
+    </nav>
+
+    <div class="nav__cta">
+      <a class="btn" href="{{ site.opentable }}" target="_blank" rel="noopener">Reserve</a>
+      <button class="nav__toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<nav class="mobile-menu" id="mobile-menu" aria-label="Mobile" aria-hidden="true">
+  {% for link in nav_links %}
+  <a href="{{ url_for(link.endpoint) }}" class="mobile-link">{{ link.label }}</a>
+  {% endfor %}
+  <a class="btn" href="{{ site.opentable }}" target="_blank" rel="noopener">Reserve a Table</a>
+</nav>

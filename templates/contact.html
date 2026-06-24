@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="page-hero">
+  <div class="container container--narrow">
+    <span class="eyebrow">Contact &amp; Directions</span>
+    <h1>Find your way to {{ site.name }}</h1>
+    <p>{{ site.parent }}</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container split">
+    <div class="split__body reveal">
+      <span class="eyebrow">Visit Us</span>
+      <h2>On the grounds of La Cantera</h2>
+      <div class="info-list" style="margin-top:var(--space-md);">
+        <div class="info-list__item">
+          <span class="label">Address</span>
+          <span class="value">{{ site.address_line }}<br />{{ site.address_city }}</span>
+        </div>
+        <div class="info-list__item">
+          <span class="label">Phone</span>
+          <span class="value"><a href="{{ site.phone_href }}">{{ site.phone }}</a></span>
+        </div>
+        <div class="info-list__item">
+          <span class="label">Directions</span>
+          <span class="value">Northwest of the Shops at La Cantera, on the resort grounds.</span>
+        </div>
+        <div class="info-list__item">
+          <span class="label">Instagram</span>
+          <span class="value"><a href="{{ site.instagram }}" target="_blank" rel="noopener">{{ site.instagram_handle }}</a></span>
+        </div>
+      </div>
+
+      <h3 style="margin-top:var(--space-lg); font-size:var(--fs-h3);">Hours</h3>
+      <table class="hours-table" style="margin-top:var(--space-sm);">
+        <tbody>
+          {% for h in hours %}
+          <tr>
+            <th scope="row">{{ h.label }}</th>
+            <td>{{ h.value }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="split__body reveal" data-delay="1">
+      <span class="eyebrow">Map</span>
+      <h2>Getting here</h2>
+      <div class="map-frame" style="margin-top:var(--space-md);">
+        <iframe
+          title="Map to {{ site.full_name }}"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          src="https://www.google.com/maps?q={{ site.lat }},{{ site.lng }}&z=15&output=embed">
+        </iframe>
+      </div>
+      <p style="margin-top:0.75rem;">
+        <a class="link-sweep"
+           href="https://www.google.com/maps/dir/?api=1&destination={{ site.lat }},{{ site.lng }}"
+           target="_blank" rel="noopener">Get directions</a>
+      </p>
+    </div>
+  </div>
+</section>
+
+{# Contact form #}
+<section class="section section--sand" id="contact-form">
+  <div class="container container--narrow">
+    <div class="section-head reveal">
+      <span class="eyebrow">Say Hello</span>
+      <h2>Send us a message</h2>
+      <p>Questions, feedback or special requests — we'd love to hear from you.</p>
+    </div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+      <ul class="flashes" role="status" aria-live="polite">
+        {% for category, message in messages %}
+        <li class="flash flash--{{ category }}">{{ message }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+    {% endwith %}
+
+    <form class="form reveal" method="post" action="{{ url_for('contact') }}#contact-form" novalidate>
+      <div class="form__row">
+        <div class="field">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" required autocomplete="name" />
+        </div>
+        <div class="field">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required autocomplete="email" />
+        </div>
+      </div>
+      <div class="field">
+        <label for="phone">Phone (optional)</label>
+        <input type="tel" id="phone" name="phone" autocomplete="tel" />
+      </div>
+      <div class="field">
+        <label for="message">Message</label>
+        <textarea id="message" name="message" required></textarea>
+      </div>
+      <div>
+        <button type="submit" class="btn">Send Message</button>
+      </div>
+    </form>
+  </div>
+</section>
+{% endblock %}

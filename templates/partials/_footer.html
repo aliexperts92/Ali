@@ -1,0 +1,51 @@
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <span class="logo">{{ site.name }}</span>
+        <p>{{ site.tagline }} A MICHELIN-recommended fine-dining experience on the grounds of Signia by Hilton La Cantera, San Antonio.</p>
+      </div>
+
+      <div>
+        <h4>Visit</h4>
+        <ul>
+          <li>{{ site.address_line }}</li>
+          <li>{{ site.address_city }}</li>
+          <li><a href="{{ site.phone_href }}">{{ site.phone }}</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>Hours</h4>
+        <dl class="footer__hours">
+          {% for h in hours %}
+          <dt>{{ h.label }}</dt>
+          <dd>{{ h.value }}</dd>
+          {% endfor %}
+        </dl>
+      </div>
+
+      <div>
+        <h4>Explore</h4>
+        <ul>
+          {% for link in nav_links %}
+          <li><a href="{{ url_for(link.endpoint) }}">{{ link.label }}</a></li>
+          {% endfor %}
+          <li><a href="{{ url_for('reservations') }}">Reservations</a></li>
+          <li><a href="{{ site.instagram }}" target="_blank" rel="noopener">Instagram {{ site.instagram_handle }}</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="footer__awards-line" style="margin-top:var(--space-lg);">
+      MICHELIN Recommended · OpenTable Top 100 · Wine Spectator Best of Award of Excellence
+    </p>
+
+    <div class="footer__bottom">
+      <span>&copy; {{ current_year }} {{ site.full_name }}. All rights reserved.</span>
+      <span>Payments: {{ site.payments }}</span>
+      <!-- TODO: replace "Your Studio" with your studio / agency name -->
+      <span>Site by {{ site.studio }}.</span>
+    </div>
+  </div>
+</footer>

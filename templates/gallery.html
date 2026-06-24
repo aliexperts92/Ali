@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="page-hero">
+  <div class="container container--narrow">
+    <span class="eyebrow">Gallery</span>
+    <h1>A glimpse inside {{ site.name }}</h1>
+    <p>Plated artistry, the glow of the open kitchen, and the rustic-elegant dining room. Select any image to view it larger.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="masonry">
+      {% for img in images %}
+      {% set src = url_for('static', filename='images/' ~ img.file) %}
+      <figure class="masonry__item reveal"
+              tabindex="0"
+              role="button"
+              aria-label="View image: {{ img.alt }}"
+              data-lightbox="{{ src }}"
+              data-alt="{{ img.alt }}">
+        <!-- TODO: add image /static/images/{{ img.file }} — see _IMAGE-LIST.md -->
+        <div class="masonry__placeholder">{{ img.alt }}</div>
+        <figcaption class="masonry__cat">{{ img.category }}</figcaption>
+      </figure>
+      {% endfor %}
+    </div>
+
+    <p style="text-align:center; margin-top:var(--space-lg);">
+      Follow along on Instagram
+      <a class="link-sweep" href="{{ site.instagram }}" target="_blank" rel="noopener">{{ site.instagram_handle }}</a>
+    </p>
+  </div>
+</section>
+
+{% include "partials/_reservation-cta.html" %}
+{% endblock %}

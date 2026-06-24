@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="page-hero">
+  <div class="container container--narrow">
+    <span class="eyebrow">Private Events</span>
+    <h1>Gather, celebrate, savor</h1>
+    <p>From intimate private dinners to corporate gatherings, {{ site.name }} offers a refined setting on the grounds of Signia by Hilton La Cantera.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container split">
+    <div class="split__media reveal">
+      <!-- TODO: add image /static/images/events-private-room.jpg (1000x1250) -->
+    </div>
+    <div class="split__body reveal" data-delay="1">
+      <span class="eyebrow">Occasions</span>
+      <h2>An address for the unforgettable</h2>
+      <p>
+        Whether it's a milestone anniversary, a rehearsal dinner, a client dinner or a corporate
+        celebration, our team crafts an experience worthy of the moment. Private dining and group
+        seating are available, with the option of outdoor cocktails amid Hill Country views.
+      </p>
+      <ul class="brunch-list" style="margin-top:var(--space-md);">
+        {% for type in event_types %}
+        <li>{{ type }}</li>
+        {% endfor %}
+      </ul>
+      <p style="margin-top:var(--space-md); color:var(--muted);">
+        Set within the Signia by Hilton La Cantera resort, we also coordinate with the resort events
+        team for larger functions.
+      </p>
+    </div>
+  </div>
+</section>
+
+{# Inquiry form #}
+<section class="section section--sand" id="inquire">
+  <div class="container container--narrow">
+    <div class="section-head reveal">
+      <span class="eyebrow">Inquire</span>
+      <h2>Plan your event</h2>
+      <p>Share a few details and our events team will be in touch.</p>
+    </div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+      <ul class="flashes" role="status" aria-live="polite">
+        {% for category, message in messages %}
+        <li class="flash flash--{{ category }}">{{ message }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+    {% endwith %}
+
+    <form class="form reveal" method="post" action="{{ url_for('events') }}#inquire" novalidate>
+      <div class="form__row">
+        <div class="field">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" required autocomplete="name" />
+        </div>
+        <div class="field">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required autocomplete="email" />
+        </div>
+      </div>
+      <div class="form__row">
+        <div class="field">
+          <label for="phone">Phone</label>
+          <input type="tel" id="phone" name="phone" autocomplete="tel" />
+        </div>
+        <div class="field">
+          <label for="date">Preferred Date</label>
+          <input type="date" id="date" name="date" />
+        </div>
+      </div>
+      <div class="form__row">
+        <div class="field">
+          <label for="party_size">Party Size</label>
+          <input type="number" id="party_size" name="party_size" min="1" max="500" />
+        </div>
+        <div class="field">
+          <label for="event_type">Event Type</label>
+          <select id="event_type" name="event_type">
+            {% for type in event_types %}
+            <option value="{{ type }}">{{ type }}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+      <div class="field">
+        <label for="message">Tell us about your event</label>
+        <textarea id="message" name="message" placeholder="Occasion, ideas, any special requests…"></textarea>
+      </div>
+      <div>
+        <button type="submit" class="btn">Send Inquiry</button>
+      </div>
+    </form>
+  </div>
+</section>
+
+{% include "partials/_reservation-cta.html" %}
+{% endblock %}
