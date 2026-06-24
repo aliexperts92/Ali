@@ -1,0 +1,19 @@
+{# Large reservation CTA band — placed before the footer on most pages #}
+<section class="section section--ink reserve-band reveal" aria-label="Make a reservation">
+  <div class="container container--narrow">
+    <span class="eyebrow">Reservations</span>
+    <h2>A table is waiting</h2>
+    <p style="margin-inline:auto;">Reservations are recommended — tables fill quickly. Join us for dinner, Sunday brunch, or Signature Hour.</p>
+
+    <div class="reserve-band__meta">
+      <span><b>Call</b> <a href="{{ site.phone_href }}">{{ site.phone }}</a></span>
+      <span><b>Dinner</b> Mon–Sat 5:30–10:00 PM</span>
+      <span><b>Find us</b> {{ site.address_line }}, {{ site.address_city }}</span>
+    </div>
+
+    <div class="hero__actions" style="justify-content:center;">
+      <a class="btn" href="{{ site.opentable }}" target="_blank" rel="noopener">Reserve on OpenTable</a>
+      <a class="btn btn--ghost" href="{{ url_for('menu') }}">View the Menu</a>
+    </div>
+  </div>
+</section>

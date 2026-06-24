@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="hero" style="min-height:80svh;">
+  <div class="hero__media" aria-hidden="true"></div>
+  <div class="hero__inner">
+    <span class="eyebrow">404</span>
+    <h1 class="hero__title" style="font-size:clamp(3rem,10vw,7rem);">Lost the trail</h1>
+    <p class="hero__tagline">The page you're looking for has wandered off into the Hill Country.</p>
+    <div class="hero__actions">
+      <a class="btn" href="{{ url_for('index') }}">Return Home</a>
+      <a class="btn btn--ghost" href="{{ url_for('menu') }}">View the Menu</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

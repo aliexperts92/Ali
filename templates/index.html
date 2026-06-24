@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+
+{% block content %}
+{# ----- Hero ----- #}
+<section class="hero">
+  <!-- TODO: add hero image at /static/images/hero-dining-room.jpg (1920x1080).
+       To enable it, swap the class below to "hero__media hero__media--img"
+       and set style="--hero-img:url('{{ url_for('static', filename='images/hero-dining-room.jpg') }}')" -->
+  <div class="hero__media" aria-hidden="true"></div>
+  <div class="hero__inner">
+    <span class="eyebrow">Est. {{ site.est }} &nbsp;&middot;&nbsp; San Antonio, Texas</span>
+    <h1 class="hero__title">{{ site.name }}</h1>
+    <p class="hero__tagline">{{ site.tagline }}</p>
+    <div class="hero__actions">
+      <a class="btn" href="{{ site.opentable }}" target="_blank" rel="noopener">Reserve a Table</a>
+      <a class="btn btn--ghost" href="{{ url_for('menu') }}">Explore the Menu</a>
+    </div>
+  </div>
+  <span class="hero__scroll">Scroll</span>
+</section>
+
+{# ----- Awards ribbon ----- #}
+{% include "partials/_awards.html" %}
+
+{# ----- Intro / philosophy ----- #}
+<section class="section">
+  <div class="container split">
+    <div class="split__media reveal">
+      <!-- TODO: add image /static/images/intro-plating.jpg (1000x1250) -->
+    </div>
+    <div class="split__body reveal" data-delay="1">
+      <span class="eyebrow">The Philosophy</span>
+      <h2>French technique, Texas Hill Country soul</h2>
+      <p>
+        Opened in {{ site.est }} on the grounds of La Cantera Resort, {{ site.name }} was envisioned
+        as a fine-dining experience that rivals a one-Michelin-star restaurant — yet remains
+        unmistakably Texan. Our cooking is rooted in French tradition and enlivened by South Texas
+        spirit: fresh Gulf seafood, ranch-raised proteins, and produce from our own kitchen garden.
+      </p>
+      <blockquote class="pull-quote">A countryside mansion, set among the rolling greens of the Hill Country.</blockquote>
+      <p style="margin-top:var(--space-md);">
+        <a class="link-sweep" href="{{ url_for('experience') }}">Discover our story</a>
+      </p>
+    </div>
+  </div>
+</section>
+
+{# ----- Experience teaser ----- #}
+<section class="section section--dark">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">The Experience</span>
+      <h2>An evening unhurried</h2>
+      <p>Thoughtful rituals, an open kitchen, and views that stretch across the Texas Hill Country.</p>
+    </div>
+    <div class="card-grid card-grid--4">
+      {% for exp in experiences %}
+      <a class="card reveal" data-delay="{{ loop.index0 % 4 }}" href="{{ url_for('experience') }}">
+        {% set icon = exp.icon %}
+        <div class="card__icon">{% include "partials/_icons.html" %}</div>
+        <h3>{{ exp.title }}</h3>
+        <p>{{ exp.body }}</p>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{# ----- Signature dishes ----- #}
+<section class="section">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">From the Kitchen</span>
+      <h2>Signature dishes</h2>
+      <p>A taste of the à la carte menu. Offerings are seasonal and change regularly.</p>
+    </div>
+    <div class="dishes">
+      {% for dish in signature_dishes %}
+      <article class="dish reveal" data-delay="{{ loop.index0 % 4 }}">
+        <!-- TODO: add image /static/images/{{ dish.image }} (900x1200) -->
+        <div class="dish__img" aria-hidden="true"></div>
+        <div class="dish__body">
+          <h3>{{ dish.name }}</h3>
+          <p>{{ dish.desc }}</p>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+    <p style="text-align:center; margin-top:var(--space-lg);">
+      <a class="btn btn--ghost" href="{{ url_for('menu') }}">See the Full Menu</a>
+    </p>
+  </div>
+</section>
+
+{# ----- Chef highlight ----- #}
+<section class="section section--sand">
+  <div class="container split split--reverse">
+    <div class="split__media reveal">
+      <!-- TODO: add image /static/images/chef-carpenter.jpg (1000x1250) -->
+    </div>
+    <div class="split__body reveal" data-delay="1">
+      <span class="eyebrow">The Culinary Team</span>
+      <h2>Led by Chef John Carpenter</h2>
+      <p>
+        Executive Chef since 2022, John Carpenter brings New-World interpretations of classic
+        Old-World dishes, plated with an unconventional Texas spirit. He leads a team alongside
+        founding chef Andrew Weissman, Executive Sous Chef Jaime Torres, and Paris-trained
+        Executive Pastry Chef Stéphane Leopoldo.
+      </p>
+      <p style="margin-top:var(--space-md);">
+        <a class="link-sweep" href="{{ url_for('experience') }}#team">Meet the team</a>
+      </p>
+    </div>
+  </div>
+</section>
+
+{# ----- Reservation CTA ----- #}
+{% include "partials/_reservation-cta.html" %}
+{% endblock %}

@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="page-hero">
+  <div class="container container--narrow">
+    <span class="eyebrow">Reservations</span>
+    <h1>Reserve your table</h1>
+    <p>Reservations are recommended; tables fill quickly. Book instantly through OpenTable, or call us directly.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container split">
+    <div class="split__body reveal">
+      <span class="eyebrow">Book Online</span>
+      <h2>Instant booking via OpenTable</h2>
+      <p>Choose your date, party size and time. We look forward to welcoming you.</p>
+      <div class="hero__actions" style="margin-top:var(--space-md);">
+        <a class="btn" href="{{ site.opentable }}" target="_blank" rel="noopener">Reserve on OpenTable</a>
+        <a class="btn btn--ghost" href="{{ site.phone_href }}">Call {{ site.phone }}</a>
+      </div>
+
+      <div style="margin-top:var(--space-lg);">
+        <!-- OpenTable does not provide a generic embeddable iframe for every venue;
+             if you obtain a restaurant-specific widget embed code, paste it here.
+             The prominent button above is the reliable fallback. -->
+        <div class="reserve-embed">
+          <iframe
+            title="OpenTable reservations for {{ site.full_name }}"
+            src="{{ site.opentable }}"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+        <p style="margin-top:0.75rem; color:var(--muted); font-size:0.9rem;">
+          If the widget does not load, use the <a class="link-sweep" href="{{ site.opentable }}" target="_blank" rel="noopener">OpenTable page</a> directly.
+        </p>
+      </div>
+    </div>
+
+    <div class="split__body reveal" data-delay="1">
+      <span class="eyebrow">Good to Know</span>
+      <h2>Hours &amp; details</h2>
+      <table class="hours-table">
+        <tbody>
+          {% for h in hours %}
+          <tr>
+            <th scope="row">{{ h.label }}</th>
+            <td>{{ h.value }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      <div class="info-list" style="margin-top:var(--space-lg);">
+        <div class="info-list__item">
+          <span class="label">Dress Code</span>
+          <span class="value">Fine dining — smart, special-occasion attire encouraged.</span>
+        </div>
+        <div class="info-list__item">
+          <span class="label">Tasting Menu</span>
+          <span class="value">Offered Friday &amp; Saturday. Full-table participation required.</span>
+        </div>
+        <div class="info-list__item">
+          <span class="label">Phone</span>
+          <span class="value"><a href="{{ site.phone_href }}">{{ site.phone }}</a></span>
+        </div>
+        <div class="info-list__item">
+          <span class="label">Payments</span>
+          <span class="value">{{ site.payments }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% include "partials/_reservation-cta.html" %}
+{% endblock %}

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>{{ meta_title or (site.full_name ~ " — French Technique. Texas Soul.") }}</title>
+  <meta name="description" content="{{ meta_description or site.cuisine }}" />
+  <meta name="theme-color" content="#14110f" />
+  <link rel="canonical" href="{{ request.url }}" />
+
+  <!-- Open Graph / social -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="{{ site.full_name }}" />
+  <meta property="og:title" content="{{ meta_title or site.full_name }}" />
+  <meta property="og:description" content="{{ meta_description or site.cuisine }}" />
+  <meta property="og:url" content="{{ request.url }}" />
+  <meta property="og:image" content="{{ url_for('static', filename='images/og-signature.jpg', _external=True) }}" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Fonts (with graceful system-font fallback in CSS) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+
+  <!-- Structured data: Restaurant -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Restaurant",
+    "name": "{{ site.full_name }}",
+    "servesCuisine": "New American, French",
+    "priceRange": "{{ site.price_point }}",
+    "telephone": "{{ site.phone }}",
+    "url": "https://{{ site.domain }}",
+    "image": "{{ url_for('static', filename='images/og-signature.jpg', _external=True) }}",
+    "acceptsReservations": "{{ site.opentable }}",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "{{ site.address_line }}",
+      "addressLocality": "San Antonio",
+      "addressRegion": "TX",
+      "postalCode": "78256",
+      "addressCountry": "US"
+    },
+    "geo": { "@type": "GeoCoordinates", "latitude": {{ site.lat }}, "longitude": {{ site.lng }} }
+  }
+  </script>
+</head>
+<body{% if page_id %} data-page="{{ page_id }}"{% endif %}{% if light_nav %} class="has-light-nav"{% endif %}>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  {% include "partials/_nav.html" %}
+
+  <main id="main">
+    {% block content %}{% endblock %}
+  </main>
+
+  {% include "partials/_footer.html" %}
+
+  {# Lightbox container (used on gallery) #}
+  <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Image viewer">
+    <button class="lightbox__close" id="lightbox-close" aria-label="Close image viewer">&times;</button>
+    <div class="lightbox__content">
+      <img id="lightbox-img" src="" alt="" />
+      <p class="lightbox__caption" id="lightbox-caption"></p>
+    </div>
+  </div>
+
+  <script src="{{ url_for('static', filename='js/main.js') }}" defer></script>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

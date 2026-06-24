@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="page-hero">
+  <div class="container container--narrow">
+    <span class="eyebrow">The Experience</span>
+    <h1>A countryside mansion in the Hill Country</h1>
+    <p>Rustic-elegant, warm and unhurried — a fine-dining experience rooted in French tradition and Texas spirit.</p>
+  </div>
+</section>
+
+{# Brand story #}
+<section class="section">
+  <div class="container split">
+    <div class="split__media reveal">
+      <!-- TODO: add image /static/images/story-dining-room.jpg (1000x1250) -->
+    </div>
+    <div class="split__body reveal" data-delay="1">
+      <span class="eyebrow">Our Story</span>
+      <h2>Since {{ site.est }}</h2>
+      <p>
+        {{ site.name }} opened in {{ site.est }} on the grounds of La Cantera Resort, envisioned as a
+        fine-dining experience that rivals a one-Michelin-star restaurant — yet remains
+        unmistakably Texan. The cuisine is rooted in French tradition and enlivened by South Texas
+        and Hill Country spirit: Gulf seafood, ranch-raised proteins, and produce from the
+        restaurant's own kitchen garden.
+      </p>
+      <p style="margin-top:var(--space-md);">
+        The vision traces to James Beard-nominated chef <strong>Andrew Weissman</strong>, founder of
+        San Antonio's legendary Le Rêve and our consulting founding chef.
+      </p>
+    </div>
+  </div>
+</section>
+
+{# The setting #}
+<section class="section section--sand">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">The Setting</span>
+      <h2>Built from history</h2>
+    </div>
+    <div class="card-grid card-grid--3">
+      {% for item in setting %}
+      <div class="card reveal" data-delay="{{ loop.index0 % 3 }}">
+        <h3>{{ item.title }}</h3>
+        <p>{{ item.body }}</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{# The rituals #}
+<section class="section section--dark">
+  <div class="container container--narrow">
+    <div class="section-head reveal">
+      <span class="eyebrow">The Rituals</span>
+      <h2>Signature service</h2>
+      <p>Thoughtful touches that mark the rhythm of an evening with us.</p>
+    </div>
+    <div class="rituals">
+      {% for ritual in rituals %}
+      <div class="ritual reveal">
+        <div>
+          <h3>{{ ritual.title }}</h3>
+          <p>{{ ritual.body }}</p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{# The team #}
+<section class="section" id="team">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">The Culinary Team</span>
+      <h2>The hands behind the table</h2>
+    </div>
+    <div class="card-grid card-grid--4">
+      {% for chef in team %}
+      <article class="card team-card reveal" data-delay="{{ loop.index0 % 4 }}">
+        <div class="team-card__photo">
+          <!-- TODO: add portrait /static/images/{{ chef.image }} (900x1200) -->
+          <span class="team-card__monogram">{{ chef.name.split(' ')[1][0] }}</span>
+        </div>
+        <h3>{{ chef.name }}</h3>
+        <span class="role">{{ chef.role }}</span>
+        <p>{{ chef.bio }}</p>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{# Awards #}
+<section class="section section--ink">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Recognition</span>
+      <h2>Honored to be recognized</h2>
+    </div>
+    <div class="awards-grid reveal">
+      {% for award in awards %}
+      <div class="awards-grid__cell">
+        <span class="award-name">{{ award.name }}</span>
+        <span class="award-detail">{{ award.detail }}</span>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% include "partials/_reservation-cta.html" %}
+{% endblock %}
